@@ -22,23 +22,6 @@ function App() {
   const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
-  // Handle admin panel access via secret key combination
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.altKey && e.code === 'KeyA') {
-        e.preventDefault();
-        if (isAdmin) {
-          setIsAdminPanelOpen(true);
-        } else {
-          setIsLoginModalOpen(true);
-        }
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isAdmin]);
-
   const handleProductClick = (product: Product) => {
     setSelectedProduct(product);
     setIsProductModalOpen(true);
@@ -46,6 +29,14 @@ function App() {
 
   const handleLoginSuccess = () => {
     setIsAdminPanelOpen(true);
+  };
+
+  const handleLoginClick = () => {
+    if (isAdmin) {
+      setIsAdminPanelOpen(true);
+    } else {
+      setIsLoginModalOpen(true);
+    }
   };
 
   const renderCurrentPage = () => {
@@ -96,6 +87,7 @@ function App() {
         onPageChange={setCurrentPage}
         onMenuClick={() => {}}
         onSearchClick={() => setIsSearchModalOpen(true)}
+        onLoginClick={handleLoginClick}
       />
 
       {renderCurrentPage()}
@@ -138,10 +130,6 @@ function App() {
           </div>
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-300">
             <p>&copy; 2024 Ridhi Sidhi Garment Collection. All rights reserved.</p>
-            <p className="mt-2 text-sm">
-              Admin Access: Press <kbd className="bg-gray-800 px-2 py-1 rounded text-xs">Ctrl + Alt + A</kbd>
-              {isAdmin && <span className="ml-2 text-green-400">• Logged in as Admin</span>}
-            </p>
           </div>
         </div>
       </footer>

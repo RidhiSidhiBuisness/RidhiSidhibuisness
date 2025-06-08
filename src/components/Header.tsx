@@ -2,6 +2,7 @@ import React from 'react';
 import { ShoppingBag, Search, Menu, Heart, User, Home } from 'lucide-react';
 import { useCart } from '../hooks/useCart';
 import { useWishlist } from '../hooks/useWishlist';
+import { useAuth } from '../hooks/useAuth';
 import { PageType } from '../types';
 
 interface HeaderProps {
@@ -9,11 +10,19 @@ interface HeaderProps {
   onPageChange: (page: PageType) => void;
   onMenuClick: () => void;
   onSearchClick: () => void;
+  onLoginClick: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ currentPage, onPageChange, onMenuClick, onSearchClick }) => {
+const Header: React.FC<HeaderProps> = ({ 
+  currentPage, 
+  onPageChange, 
+  onMenuClick, 
+  onSearchClick,
+  onLoginClick 
+}) => {
   const { getCartCount } = useCart();
   const { getWishlistCount } = useWishlist();
+  const { isAdmin, logout } = useAuth();
 
   const navigationItems = [
     { id: 'home' as PageType, label: 'Home', icon: Home },
@@ -90,9 +99,29 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onPageChange, onMenuClick,
               )}
             </button>
             
-            <button className="hidden md:block p-2 text-gray-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-colors">
-              <User className="h-5 w-5" />
-            </button>
+            {/* User/Admin Button */}
+            <div className="relative">
+              {isAdmin ? (
+                <div className="flex items-center space-x-2">
+                  <span className="hidden md:block text-sm text-green-600 font-medium">Admin</span>
+                  <button 
+                    onClick={logout}
+                    className="p-2 text-gray-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-colors"
+                    title="Logout"
+                  >
+                    <User className="h-5 w-5 text-green-600" />
+                  </button>
+                </div>
+              ) : (
+                <button 
+                  onClick={onLoginClick}
+                  className="hidden md:flex items-center space-x-1 p-2 text-gray-700 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-colors"
+                >
+                  <User className="h-5 w-5" />
+                  <span className="text-sm">Sign In</span>
+                </button>
+              )}
+            </div>
             
             <button 
               onClick={() => onPageChange('cart')}
