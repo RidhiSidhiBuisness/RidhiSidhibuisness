@@ -2,22 +2,16 @@ import React, { useState } from 'react';
 import { X, Eye, EyeOff, Lock, Mail, Shield, User } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
-interface LoginModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onLoginSuccess: () => void;
-}
-
-const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess }) => {
+const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [loginType, setLoginType] = useState<'customer' | 'admin'>('customer');
+  const [loginType, setLoginType] = useState('customer');
   const { login } = useAuth();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);

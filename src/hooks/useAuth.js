@@ -1,13 +1,7 @@
 import { useState, useEffect } from 'react';
 
-interface AuthState {
-  isAuthenticated: boolean;
-  isAdmin: boolean;
-  user: { email: string } | null;
-}
-
 export const useAuth = () => {
-  const [authState, setAuthState] = useState<AuthState>({
+  const [authState, setAuthState] = useState({
     isAuthenticated: false,
     isAdmin: false,
     user: null
@@ -30,7 +24,7 @@ export const useAuth = () => {
     }
   }, []);
 
-  const login = (email: string, password: string): boolean => {
+  const login = (email, password) => {
     // Admin credentials
     const adminEmail = 'ridhisidhigarmentcollection@gmail.com';
     const adminPassword = 'RidhiSidhiGarments';

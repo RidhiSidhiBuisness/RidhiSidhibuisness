@@ -3,17 +3,8 @@ import { ShoppingBag, Search, Menu, Heart, User, Home } from 'lucide-react';
 import { useCart } from '../hooks/useCart';
 import { useWishlist } from '../hooks/useWishlist';
 import { useAuth } from '../hooks/useAuth';
-import { PageType } from '../types';
 
-interface HeaderProps {
-  currentPage: PageType;
-  onPageChange: (page: PageType) => void;
-  onMenuClick: () => void;
-  onSearchClick: () => void;
-  onLoginClick: () => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ 
+const Header = ({ 
   currentPage, 
   onPageChange, 
   onMenuClick, 
@@ -25,11 +16,11 @@ const Header: React.FC<HeaderProps> = ({
   const { isAdmin, logout } = useAuth();
 
   const navigationItems = [
-    { id: 'home' as PageType, label: 'Home', icon: Home },
-    { id: 'new-arrivals' as PageType, label: 'New Arrivals' },
-    { id: 'ethnic' as PageType, label: 'Ethnic Wear' },
-    { id: 'western' as PageType, label: 'Western Wear' },
-    { id: 'party' as PageType, label: 'Party Wear' }
+    { id: 'home', label: 'Home', icon: Home },
+    { id: 'new-arrivals', label: 'New Arrivals' },
+    { id: 'ethnic', label: 'Ethnic Wear' },
+    { id: 'western', label: 'Western Wear' },
+    { id: 'party', label: 'Party Wear' }
   ];
 
   return (

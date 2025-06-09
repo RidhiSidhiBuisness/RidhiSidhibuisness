@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { CartItem, Product } from '../types';
 
 export const useCart = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const storedCart = localStorage.getItem('ridhi-sidhi-cart');
@@ -11,7 +10,7 @@ export const useCart = () => {
     }
   }, []);
 
-  const addToCart = (product: Product, size: string, color: string, quantity: number = 1) => {
+  const addToCart = (product, size, color, quantity = 1) => {
     const existingItem = cartItems.find(
       item => item.product.id === product.id && item.size === size && item.color === color
     );
@@ -24,7 +23,7 @@ export const useCart = () => {
           : item
       );
     } else {
-      const newItem: CartItem = {
+      const newItem = {
         id: `${product.id}-${size}-${color}-${Date.now()}`,
         product,
         quantity,
@@ -38,13 +37,13 @@ export const useCart = () => {
     localStorage.setItem('ridhi-sidhi-cart', JSON.stringify(updatedCart));
   };
 
-  const removeFromCart = (itemId: string) => {
+  const removeFromCart = (itemId) => {
     const updatedCart = cartItems.filter(item => item.id !== itemId);
     setCartItems(updatedCart);
     localStorage.setItem('ridhi-sidhi-cart', JSON.stringify(updatedCart));
   };
 
-  const updateQuantity = (itemId: string, quantity: number) => {
+  const updateQuantity = (itemId, quantity) => {
     if (quantity <= 0) {
       removeFromCart(itemId);
       return;

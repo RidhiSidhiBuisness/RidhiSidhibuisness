@@ -1,4 +1,7 @@
-export interface Product {
+// Type definitions for reference (JavaScript doesn't use these at runtime)
+
+/*
+Product {
   id: string;
   name: string;
   price: number;
@@ -16,7 +19,7 @@ export interface Product {
   reviews: number;
 }
 
-export interface CartItem {
+CartItem {
   id: string;
   product: Product;
   quantity: number;
@@ -24,16 +27,17 @@ export interface CartItem {
   color: string;
 }
 
-export interface WishlistItem {
+WishlistItem {
   id: string;
   product: Product;
   addedAt: string;
 }
 
-export interface Category {
+Category {
   id: string;
   name: string;
   subcategories: string[];
 }
 
-export type PageType = 'home' | 'new-arrivals' | 'ethnic' | 'western' | 'party' | 'cart' | 'wishlist';
+PageType = 'home' | 'new-arrivals' | 'ethnic' | 'western' | 'party' | 'cart' | 'wishlist';
+*/

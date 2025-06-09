@@ -10,19 +10,18 @@ import AdminPanel from './components/AdminPanel';
 import LoginModal from './components/LoginModal';
 import { useProducts } from './hooks/useProducts';
 import { useAuth } from './hooks/useAuth';
-import { Product, PageType } from './types';
 
 function App() {
   const { products, addProduct, updateProduct, deleteProduct } = useProducts();
   const { isAdmin } = useAuth();
-  const [currentPage, setCurrentPage] = useState<PageType>('home');
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [currentPage, setCurrentPage] = useState('home');
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [isAdminPanelOpen, setIsAdminPanelOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
-  const handleProductClick = (product: Product) => {
+  const handleProductClick = (product) => {
     setSelectedProduct(product);
     setIsProductModalOpen(true);
   };
